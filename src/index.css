@@ -1,0 +1,455 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+  background: #0a0a0a;
+  color: #f3f4f6;
+}
+
+@layer utilities {
+  /* Blinking Cursor Animation */
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink {
+    animation: blink 0.8s step-end infinite;
+  }
+
+  /* Gradient Animation */
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-gradient-bg {
+    background-size: 200% 200%;
+    animation: gradientAnimation 6s ease infinite;
+  }
+
+  /* Floating Animation */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Glow Animation */
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow: inset 0 0 20px rgba(66, 85, 212, 0.6);
+    }
+    50% {
+      box-shadow: inset 0 0 40px rgba(66, 85, 212, 0.8);
+    }
+  }
+
+  /* Spin Animations */
+  @keyframes spin-slow {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 6s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spin-reverse 6s linear infinite;
+  }
+
+  /* Glassmorphism Effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Icon Hover Animation */
+  @keyframes iconHover {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .group:hover .icon-hover {
+    animation: iconHover 0.5s ease;
+  }
+
+  /* Wave Animation */
+  @keyframes vawe {
+    20% {
+      border-radius: 45% 55% 62% 38% / 53% 51% 49% 47%;
+    }
+    40% {
+      border-radius: 45% 55% 49% 51% / 36% 51% 49% 64%;
+    }
+    60% {
+      border-radius: 60% 40% 57% 43% / 47% 62% 38% 53%;
+    }
+    80% {
+      border-radius: 60% 40% 32% 68% / 38% 36% 64% 62%;
+    }
+  }
+
+  .animate-vawe {
+    animation: vawe 5s linear infinite;
+  }
+
+  /* Loading Bar Animation */
+  @keyframes loading-bar {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .animate-loading-bar {
+    animation: loading-bar 1.5s ease-in-out infinite;
+  }
+
+  /* Bouncing Dot Animation */
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-bounce {
+    animation: bounce 0.8s infinite;
+  }
+
+  /* Framed Button Animation */
+  .btn {
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Light border */
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
+    transition: 1s;
+    background: transparent;
+    color: white;
+  }
+
+  .btn::before,
+  .btn::after {
+    position: absolute;
+    background: #0a0a0a; /* Match the background color */
+    z-index: -1;
+    transition: 1s;
+    content: "";
+  }
+
+  .btn::before {
+    height: 50px;
+    width: calc(100% - 20px); /* Adjust width */
+  }
+
+  .btn::after {
+    width: 100%;
+    height: 30px;
+  }
+
+  .btn:hover::before {
+    width: 0px;
+    background: #fff;
+  }
+
+  .btn:hover::after {
+    height: 0px;
+    background: #fff;
+  }
+
+  .btn:hover {
+    background: #fff;
+    color: #0a0a0a; /* Dark text on hover */
+  }
+}
+
+/* Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Avatar Styling */
+.avatar {
+  --avatar-size: 100%;
+  height: var(--avatar-size);
+  width: var(--avatar-size);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  box-shadow: 0 0 20px rgba(66, 85, 212, 0.6);
+  animation: float 6s ease-in-out infinite;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Glow Effect */
+.avatar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 20px rgba(66, 85, 212, 0.6);
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Background Animation for About Section */
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+.about .background-animation {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.about .background-animation .wave {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(45deg, #ab49de, #5b41f2);
+  border-radius: 54% 46% 42% 58% / 60% 58% 42% 40%;
+  animation: vawe 5s linear infinite;
+}
+
+.about .background-animation .wave-1 {
+  top: -10%;
+  right: -10%;
+}
+
+.about .background-animation .wave-2 {
+  bottom: -10%;
+  left: -15%;
+}
+
+.about .background-animation .dots {
+  position: absolute;
+  inset: 0;
+}
+
+.about .background-animation .dots span {
+  position: absolute;
+  background: linear-gradient(45deg, #ab49de, #5b41f2);
+  border-radius: 38% 62% 55% 45% / 32% 53% 47% 68%;
+  animation: vawe 7s linear infinite;
+}
+
+.about .background-animation .dots span:nth-child(1) {
+  top: 10%;
+  left: calc(100% - 360px);
+  width: 75px;
+  height: 75px;
+}
+
+.about .background-animation .dots span:nth-child(2) {
+  top: 15px;
+  left: 180px;
+  width: 50px;
+  height: 50px;
+  border-radius: 38% 62% 33% 67% / 60% 53% 47% 40%;
+  transform: rotate(90deg);
+}
+
+.about .background-animation .dots span:nth-child(3) {
+  right: 180px;
+  bottom: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 38% 62% 55% 45% / 52% 53% 47% 48%;
+}
+
+.about .background-animation .dots span:nth-child(4) {
+  bottom: 50px;
+  left: 240px;
+  width: 20px;
+  height: 20px;
+  border-radius: 38% 62% 55% 45% / 52% 53% 47% 48%;
+}
+
+.about .background-animation .dots span:nth-child(5) {
+  right: 280px;
+  bottom: 80px;
+  width: 25px;
+  height: 25px;
+  border-radius: 38% 62% 55% 45% / 52% 53% 47% 48%;
+}
+
+.about .background-animation .dots span:nth-child(6) {
+  top: 6%;
+  left: calc(100% - 400px);
+  width: 25px;
+  height: 25px;
+}
+
+.about .background-animation .dots span:nth-child(7) {
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+
+.contact-btn {
+  color: white;
+  border: 1px solid white;
+  padding: 12px 40px; 
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px; 
+  transition: all 0.3s ease;
+  width: 100%; 
+  max-width: 300px; 
+  margin: 0 auto; 
+  display: block; 
+}
+
+.contact-btn span {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-btn::before,
+.contact-btn::after {
+  content: '';
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: transform 0.3s ease;
+}
+
+.contact-btn::before {
+  background-color: rgb(103, 128, 209);
+  transform: translateX(-100%);
+}
+
+.contact-btn::after {
+  background-color: #aa5ddd;
+  transform: translateX(100%);
+}
+
+.contact-btn:hover::before {
+  transform: translateX(0);
+}
+
+.contact-btn:hover::after {
+  transform: translateX(0);
+}
+
+.contact-btn:hover {
+  color: white;
+}
+
+/* Responsive Adjustments */
+@media (min-width: 640px) {
+  .contact-btn {
+    padding: 12px 60px; /* Increase padding on medium screens */
+    font-size: 12px; /* Increase font size on medium screens */
+    max-width: 350px; /* Slightly larger max-width for tablets */
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-btn {
+    padding: 12px 80px; /* Further increase padding on larger screens */
+    font-size: 14px; /* Further increase font size on larger screens */
+    max-width: 400px; /* Larger max-width for desktops */
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-btn {
+    padding: 12px 100px; /* Maximum padding on extra-large screens */
+    font-size: 16px; /* Maximum font size on extra-large screens */
+    max-width: 450px; /* Even larger max-width for wide desktops */
+  }
+}
+
+@media (min-width: 1280px) {
+  .contact-btn {
+    padding: 12px 120px; /* Extra padding for very wide screens */
+    font-size: 18px; /* Extra font size for very wide screens */
+    max-width: 500px; /* Maximum width for very wide screens */
+  }
+}
+
